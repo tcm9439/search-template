@@ -1,0 +1,54 @@
+{
+    "name": "search-template",
+    "displayName": "Search Filter Set",
+    "description": "Store multiple search parameters.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.109.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "searchTemplate",
+                    "title": "Search Template",
+                    "icon": "resources/icon.svg"
+                }
+            ]
+        },
+        "views": {
+            "searchTemplate": [
+                {
+                    "id": "searchTemplate.searchTemplateListSidebar",
+                    "icon": "resources/icon.svg",
+                    "type": "webview",
+                    "name": "Hello Sidebar"
+                }
+            ]
+        },
+        "commands": []
+    },
+    "scripts": {
+        "vscode:prepublish": "pnpm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "pnpm run compile && pnpm run lint",
+        "lint": "eslint src",
+        "test": "vscode-test"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.109.0",
+        "@types/mocha": "^10.0.10",
+        "@types/node": "22.x",
+        "typescript-eslint": "^8.56.1",
+        "eslint": "^9.39.3",
+        "typescript": "^5.9.3",
+        "@vscode/test-cli": "^0.0.12",
+        "@vscode/test-electron": "^2.5.2"
+    }
+}
