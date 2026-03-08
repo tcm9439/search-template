@@ -77,28 +77,38 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
         return `
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="${stylesUri}" rel="stylesheet">
-  </head>
-  <body>
-    <h2>Search Filter Sets</h2>
-    <div>
-      <input id="name" placeholder="Name" />
-      <label>Files to include</label>
-      <input id="include" placeholder="e.g. src/**" />
-      <label>Files to exclude</label>
-      <input id="exclude" placeholder="e.g. **/node_modules/**" />
-      <div class="row">
-        <button id="save">Save</button>
-      </div>
-    </div>
-    <h3>Saved Sets</h3>
-    <div id="list" class="list"></div>
-	<script src="${scriptUri}" nonce="${nonce}"></script>
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="${stylesUri}" rel="stylesheet">
+    </head>
+    <body>
+        <h2>Search Templates</h2>
+        <div class="panel">
+            <label for="name">Name</label>
+            <input id="name" placeholder="Name" />
+
+            <label for="include">Files to include</label>
+            <div class="input-with-row">
+                <input id="include" placeholder="e.g. src/**" />
+            </div>
+
+            <label for="exclude">Files to exclude</label>
+            <div class="input-with-row">
+                <input id="exclude" placeholder="e.g. **/node_modules/**" />
+            </div>
+
+            <div class="row">
+                <button id="save">Save</button>
+            </div>
+        </div>
+
+        <h3>Saved Sets</h3>
+        <div id="list" class="list"></div>
+
+        <script src="${scriptUri}" nonce="${nonce}"></script>
+    </body>
 </html>
-    `;
+        `;
     }
 }

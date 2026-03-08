@@ -1,28 +1,98 @@
 body {
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+    background-color: var(--vscode-editor-background);
+    color: var(--vscode-editor-foreground);
+    font-family: var(--vscode-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial);
+    font-size: var(--vscode-font-size);
     padding: 12px;
+    margin: 0;
 }
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--vscode-editor-foreground);
+    font-size: var(--vscode-font-size);
+}
+
 input,
 textarea {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 8px;
+    height: 1.5rem;
+    color: var(--vscode-input-foreground, var(--vscode-foreground));
+    background-color: var(--vscode-input-background);
+    border: 1px solid var(--vscode-input-border);
+    padding: 0 9px;
+    border-radius: 2px;
+    font-family: inherit;
 }
+
 .row {
     display: flex;
     gap: 8px;
     margin-bottom: 8px;
+    align-items: center;
 }
+
+.panel {
+    padding: 8px;
+    border: 2px solid var(--vscode-editorGroup-border);
+}
+
 .list {
     padding: 8px;
     max-height: 300px;
     overflow: auto;
+    /* border-top: 1px solid var(--vscode-editorGroup-border); */
 }
+
 .item {
     padding: 6px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--vscode-settings-dropdownListBorder);
+    color: var(--vscode-foreground);
 }
+
 button {
-    margin-right: 8px;
+    padding: 4.6px 11.5px;
+    border: 1px solid var(--vscode-button-border);
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    font-family: inherit;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+    border-color: var(--vscode-button-hoverBorder);
+}
+
+.secondary-button {
+    padding: 4.6px 11.5px;
+    border: 1px solid var(--vscode-button-secondaryBorder);
+    background-color: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+    border-radius: 2px;
+}
+
+h2, h3 {
+    margin: 8px 0;
+    color: var(--vscode-editor-foreground);
+}
+
+/* Scrollbar styled to match VS Code */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--vscode-scrollbarSlider-background);
+}
+
+.input-with-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
 }
