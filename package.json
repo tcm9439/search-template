@@ -1,6 +1,6 @@
 {
     "name": "search-template",
-    "displayName": "Search Filter Set",
+    "displayName": "Search Template",
     "description": "Store multiple search parameters.",
     "version": "0.0.1",
     "icon": "resources/icon.png",
