@@ -88,7 +88,6 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data:; script-src 'nonce-${nonce}'; style-src ${webview.cspSource};">
         <link href="${stylesUri}" rel="stylesheet">
     </head>
     <body>

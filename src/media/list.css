@@ -41,7 +41,7 @@ textarea {
 
 .list {
     padding: 8px 4px;
-    max-height: 300px;
+    max-height: 65vh;
     overflow: auto;
 }
 

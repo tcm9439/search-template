@@ -13,14 +13,21 @@ function makeIconButton(titleText, src, onClick) {
     btn.className = "icon-button";
     btn.setAttribute("title", titleText);
     btn.setAttribute("aria-label", titleText);
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = titleText;
-    img.className = "icon-img";
-    btn.appendChild(img);
     btn.onclick = onClick;
+    inlineSvgAndReplace(src, btn);
     return btn;
 };
+
+async function inlineSvgAndReplace(url, container) {
+    try {
+        const res = await fetch(url);
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(await res.text(), 'image/svg+xml');
+        const svg = doc.querySelector('svg');
+        svg.classList.add('icon-img-svg');
+        container.appendChild(svg);
+    } catch (e) { }
+}
 
 function renderTemplateItem(s) {
     const div = document.createElement("div");
@@ -37,19 +44,16 @@ function renderTemplateItem(s) {
     const actions = document.createElement("div");
     actions.className = "item-actions";
 
-    const applySrc = window.__SEARCH_TEMPLATE__.svgCheckInline || window.__SEARCH_TEMPLATE__.svgCheck;
-    const btnApply = makeIconButton("Apply", applySrc, () => {
+    const btnApply = makeIconButton("Apply", window.__SEARCH_TEMPLATE__.svgCheck, () => {
         vscode.postMessage({ command: "apply", id: s.id });
     });
-    const editSrc = window.__SEARCH_TEMPLATE__.svgEditInline || window.__SEARCH_TEMPLATE__.svgEdit;
-    const btnEdit = makeIconButton("Edit", editSrc, () => {
+    const btnEdit = makeIconButton("Edit", window.__SEARCH_TEMPLATE__.svgEdit, () => {
         editingId = s.id;
         document.getElementById("name").value = s.name;
         document.getElementById("include").value = s.include || "";
         document.getElementById("exclude").value = s.exclude || "";
     });
-    const trashSrc = window.__SEARCH_TEMPLATE__.svgTrashInline || window.__SEARCH_TEMPLATE__.svgTrash;
-    const btnDel = makeIconButton("Delete", trashSrc, () => {
+    const btnDel = makeIconButton("Delete", window.__SEARCH_TEMPLATE__.svgTrash, () => {
         vscode.postMessage({ command: "delete", id: s.id });
     });
 
