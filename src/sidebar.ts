@@ -118,15 +118,17 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
                 <button id="save">Save</button>
             </div>
         </div>
-        <div class="row">
-            <label class="multi-select-row">
-                <input type="checkbox" id="multi-select-toggle" />
-                Multi-select
-            </label>
-            <button id="apply-all" class="secondary-button" disabled>Apply All</button>
-        </div>
+        <div class="separator"></div>
 
         <div id="list" class="list"></div>
+
+        <div class="row right-align">
+            <label class="multi-select-row">
+                <input type="checkbox" id="multi-select-toggle" />
+                Multi
+            </label>
+            <button id="apply-all" class="button small-button" disabled>Apply All</button>
+        </div>
 
         <script nonce="${nonce}">
           window.__SEARCH_TEMPLATE__ = {

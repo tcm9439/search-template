@@ -13,7 +13,11 @@ label {
     font-size: var(--vscode-font-size);
 }
 
-input,
+.separator {
+    margin: 1.5em;
+}
+
+input:not([type="checkbox"]),
 textarea {
     width: 100%;
     box-sizing: border-box;
@@ -27,6 +31,15 @@ textarea {
     font-family: inherit;
 }
 
+input[type="checkbox"],
+.item-checkbox {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
 .row {
     display: flex;
     gap: 8px;
@@ -38,6 +51,24 @@ textarea {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    line-height: 1;
+}
+
+.row label {
+    margin-bottom: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.row.right-align {
+    justify-content: flex-end;
+}
+
+#apply-all {
+    display: inline-flex;
+    align-items: center;
+    height: 1.25em;
+    padding: 4px 10px;
 }
 
 .item-checkbox {
@@ -123,12 +154,9 @@ button:hover {
     border-color: var(--vscode-button-hoverBorder);
 }
 
-.secondary-button {
-    padding: 4.6px 11.5px;
-    border: 1px solid var(--vscode-button-secondaryBorder);
-    background-color: var(--vscode-button-secondaryBackground);
-    color: var(--vscode-button-secondaryForeground);
-    border-radius: 2px;
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Scrollbar styled to match VS Code */
