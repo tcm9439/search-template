@@ -1,71 +1,38 @@
-# search-template README
+# Search Filter Set (search-template)
 
-This is the README for your extension "search-template". After writing up a brief description, we recommend including the following sections.
+Save and reuse sets of search filters (include/exclude globs) and apply them to VS Code's "Find in Files". Provides a sidebar to create, name, and persist search templates per workspace.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- Save named search templates with `include` and `exclude` glob patterns.
+- Apply a single template to the built-in "Find in Files" view.
+- Select multiple templates and "Apply All" to merge include/exclude patterns.
+- Templates are persisted in the workspace state (no external files required).
 
-For example if there is an image subfolder under your extension project workspace:
+## Quick Demo
 
-\!\[feature X\]\(images/feature-x.png\)
+1. Open the "Search Template" view in the Activity Bar.
+2. Fill `Name`, `Files to include` and `Files to exclude`, then click `Save`.
+3. Select a saved template and click the apply button to run Find in Files with those filters.
+4. Toggle multi-select to apply a combination of templates.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Usage
 
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- Open the "Search Template" sidebar (Activity Bar) to view and manage templates.
+- Fields:
+	- `Name` — human-friendly label for the template.
+	- `Files to include` — glob(s) for files to include (e.g., `src/**`).
+	- `Files to exclude` — glob(s) for files to exclude (e.g., `**/node_modules/**`).
+- Buttons:
+	- `Save` — create or update the template.
+	- `Apply` (per item) — run Find in Files with the template filters.
+	- `Delete` — remove the template from workspace storage.
+	- `Multi` toggle + `Apply All` — combine selected templates and apply together.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+This extension does not contribute any configurable settings.
 
-For example:
+## License
 
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+MIT
