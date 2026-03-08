@@ -54,13 +54,19 @@ export function deleteSearchTemplate(context: vscode.ExtensionContext, currentSe
 export function setSearchTemplate(
     context: vscode.ExtensionContext,
     currentSets: SearchTemplateStorage,
-    set: SearchTemplate,
+    set?: SearchTemplate,
 ) {
-    currentSets[set.id] = set;
-    return saveSearchTemplates(context, currentSets);
+    if (set) {
+        currentSets[set.id] = set;
+        return saveSearchTemplates(context, currentSets);
+    }
 }
 
-export function backfill(set: EditSearchTemplate): SearchTemplate {
+export function backfill(set: EditSearchTemplate): SearchTemplate | undefined {
+    if (!set.id && !set.include && !set.exclude) {
+        // avoid create empty template
+        return undefined;
+    }
     return {
         id: set.id || getNonce(),
         name: set.name || "Untitled",

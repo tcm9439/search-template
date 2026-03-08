@@ -53,7 +53,6 @@ function renderTemplateItem(s) {
     actions.className = "item-actions";
 
     if (multiSelectMode) {
-
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.className = "item-checkbox";
@@ -128,6 +127,7 @@ document.getElementById("save").addEventListener("click", () => {
 document.getElementById("multi-select-toggle").addEventListener("change", (e) => {
     multiSelectMode = e.target.checked;
     selectedIds.clear();
+    updateApplyAllButton();
     vscode.postMessage({ command: "rerender" });
 });
 
