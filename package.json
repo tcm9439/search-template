@@ -3,6 +3,7 @@
     "displayName": "Search Filter Set",
     "description": "Store multiple search parameters.",
     "version": "0.0.1",
+    "icon": "resources/icon.png",
     "engines": {
         "vscode": "^1.109.0"
     },
@@ -10,6 +11,10 @@
         "Other"
     ],
     "activationEvents": [],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tcm9439/search-template"
+    },
     "main": "./out/extension.js",
     "contributes": {
         "viewsContainers": {

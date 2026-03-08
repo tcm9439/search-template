@@ -1,4 +1,4 @@
-# Search Filter Set (search-template)
+# Search Template
 
 Save and reuse sets of search filters (include/exclude globs) and apply them to VS Code's "Find in Files". Provides a sidebar to create, name, and persist search templates per workspace.
 
@@ -32,7 +32,3 @@ Save and reuse sets of search filters (include/exclude globs) and apply them to 
 ## Extension Settings
 
 This extension does not contribute any configurable settings.
-
-## License
-
-MIT

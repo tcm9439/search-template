@@ -1,6 +1,8 @@
 .vscode/**
 .vscode-test/**
 src/**
+.vscodeignore rule: include media assets in src/media
+!src/media/**
 .gitignore
 .yarnrc
 vsc-extension-quickstart.md
