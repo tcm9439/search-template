@@ -66,9 +66,17 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
         const scriptUri = webview.asWebviewUri(
             vscode.Uri.joinPath(this.context.extensionUri, "src", "media", "list.js"),
         );
-
         const stylesUri = webview.asWebviewUri(
             vscode.Uri.joinPath(this.context.extensionUri, "src", "media", "list.css"),
+        );
+        const svgCheck = webview.asWebviewUri(
+            vscode.Uri.joinPath(this.context.extensionUri, "src", "media", "check.svg"),
+        );
+        const svgEdit = webview.asWebviewUri(
+            vscode.Uri.joinPath(this.context.extensionUri, "src", "media", "edit.svg"),
+        );
+        const svgTrash = webview.asWebviewUri(
+            vscode.Uri.joinPath(this.context.extensionUri, "src", "media", "trash.svg"),
         );
 
         // Use a nonce to only allow specific scripts to be run
@@ -80,10 +88,10 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data:; script-src 'nonce-${nonce}'; style-src ${webview.cspSource};">
         <link href="${stylesUri}" rel="stylesheet">
     </head>
     <body>
-        <h2>Search Templates</h2>
         <div class="panel">
             <label for="name">Name</label>
             <input id="name" placeholder="Name" />
@@ -103,8 +111,15 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
             </div>
         </div>
 
-        <h3>Saved Sets</h3>
         <div id="list" class="list"></div>
+
+        <script nonce="${nonce}">
+          window.__SEARCH_TEMPLATE__ = {
+            svgCheck: "${svgCheck}",
+            svgEdit: "${svgEdit}",
+            svgTrash: "${svgTrash}"
+          };
+        </script>
 
         <script src="${scriptUri}" nonce="${nonce}"></script>
     </body>

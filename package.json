@@ -27,7 +27,7 @@
                     "id": "searchTemplate.searchTemplateListSidebar",
                     "icon": "resources/icon.svg",
                     "type": "webview",
-                    "name": "Hello Sidebar"
+                    "name": ""
                 }
             ]
         },
