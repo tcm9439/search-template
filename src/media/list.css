@@ -34,6 +34,17 @@ textarea {
     align-items: center;
 }
 
+.multi-select-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.item-checkbox {
+    width: 1em;
+    height: 1em;
+}
+
 .panel {
     padding: 8px;
     border: 2px solid var(--vscode-editorGroup-border);

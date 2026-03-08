@@ -8,6 +8,7 @@ import {
     getSearchTemplates,
     getNonce,
     setSearchTemplate,
+    mergeTemplates,
 } from "./search_template";
 
 export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProvider {
@@ -36,7 +37,7 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
 
         wv.onDidReceiveMessage(async (msg) => {
             switch (msg.command) {
-                case "on-load":
+                case "rerender":
                     rerender();
                     break;
                 case "save": {
@@ -55,6 +56,14 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
                     const set = this.sets[msg.id];
                     if (set) {
                         applySearchTemplate(set);
+                    }
+                    break;
+                }
+                case "apply-all": {
+                    const ids: string[] = msg.ids || [];
+                    const sets = ids.map((id) => this.sets[id]).filter(Boolean);
+                    if (sets.length > 0) {
+                        applySearchTemplate(mergeTemplates(sets));
                     }
                     break;
                 }
@@ -108,6 +117,13 @@ export class SearchTemplateListSidebarProvider implements vscode.WebviewViewProv
             <div class="row">
                 <button id="save">Save</button>
             </div>
+        </div>
+        <div class="row">
+            <label class="multi-select-row">
+                <input type="checkbox" id="multi-select-toggle" />
+                Multi-select
+            </label>
+            <button id="apply-all" class="secondary-button" disabled>Apply All</button>
         </div>
 
         <div id="list" class="list"></div>

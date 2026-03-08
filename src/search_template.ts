@@ -68,3 +68,15 @@ export function backfill(set: EditSearchTemplate): SearchTemplate {
         exclude: set.exclude,
     };
 }
+
+export function mergeTemplates(sets: SearchTemplate[]): SearchTemplate {
+    const includes = sets.map((s) => s.include || "").filter((v) => v.trim() !== "");
+    const excludes = sets.map((s) => s.exclude || "").filter((v) => v.trim() !== "");
+
+    return {
+        id: "combined",
+        name: "Combined",
+        include: includes.join(","),
+        exclude: excludes.join(","),
+    };
+}
