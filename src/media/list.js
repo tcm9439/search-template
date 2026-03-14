@@ -2,7 +2,7 @@ const vscode = acquireVsCodeApi();
 
 let editingId = "";
 const selectedIds = new Set();
-let multiSelectMode = false;
+let multiSelectMode = localStorage.getItem("multiSelectMode") === "true";
 
 function makeIconButton(titleText, src, onClick) {
     const btn = document.createElement("button");
@@ -152,6 +152,7 @@ document.getElementById("save").addEventListener("click", () => {
 
 document.getElementById("multi-select-toggle").addEventListener("change", (e) => {
     multiSelectMode = e.target.checked;
+    localStorage.setItem("multiSelectMode", multiSelectMode);
     selectedIds.clear();
     updateApplyAllButton();
     vscode.postMessage({ command: "rerender" });
@@ -169,6 +170,7 @@ window.addEventListener("message", (event) => {
 });
 
 function onLoad() {
+    document.getElementById("multi-select-toggle").checked = multiSelectMode;
     vscode.postMessage({ command: "rerender" });
 }
 onLoad();
