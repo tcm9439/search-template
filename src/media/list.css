@@ -109,6 +109,11 @@ input[type="checkbox"],
     font-size: 1.05em;
 }
 
+.item .title strong:hover {
+    color: var(--vscode-textLink-foreground);
+    text-decoration: underline;
+}
+
 .item-header {
     font-size: 1.25em;
     display: flex;

@@ -45,8 +45,13 @@ function renderTemplateItem(s) {
     itemHeader.className = "item-header";
 
     const title = document.createElement("div");
+    title.className = "title";
     const strong = document.createElement("strong");
     strong.textContent = s.name;
+    strong.style.cursor = "pointer";
+    strong.onclick = () => {
+        vscode.postMessage({ command: "apply", id: s.id });
+    };
     title.appendChild(strong);
 
     const actions = document.createElement("div");
