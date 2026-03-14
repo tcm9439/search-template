@@ -2,7 +2,7 @@
     "name": "search-template",
     "displayName": "Search Template",
     "description": "Store multiple search parameters.",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "icon": "resources/icon.png",
     "engines": {
         "vscode": "^1.109.0"
