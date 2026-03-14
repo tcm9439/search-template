@@ -37,9 +37,24 @@ function updateApplyAllButton() {
     btn.disabled = selectedIds.size === 0;
 }
 
+function toggleMultiSelect(id) {
+    if (selectedIds.has(id)) {
+        selectedIds.delete(id);
+    } else {
+        selectedIds.add(id);
+    }
+    updateApplyAllButton();
+}
+
 function renderTemplateItem(s) {
     const div = document.createElement("div");
     div.className = "item";
+    div.onclick = (e) => {
+        if (multiSelectMode) {
+            toggleMultiSelect(s.id);
+            vscode.postMessage({ command: "rerender" });
+        }
+    };
 
     const itemHeader = document.createElement("div");
     itemHeader.className = "item-header";
@@ -49,8 +64,11 @@ function renderTemplateItem(s) {
     const strong = document.createElement("strong");
     strong.textContent = s.name;
     strong.style.cursor = "pointer";
-    strong.onclick = () => {
-        vscode.postMessage({ command: "apply", id: s.id });
+    strong.onclick = (e) => {
+        if (!multiSelectMode) {
+            e.stopPropagation(); // Prevent item click
+            vscode.postMessage({ command: "apply", id: s.id });
+        }
     };
     title.appendChild(strong);
 
@@ -61,26 +79,29 @@ function renderTemplateItem(s) {
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.className = "item-checkbox";
+        checkbox.checked = selectedIds.has(s.id);
+        checkbox.onclick = (e) => {
+            e.stopPropagation(); // Prevent item click
+        };
         checkbox.onchange = (e) => {
-            if (e.target.checked) { 
-                selectedIds.add(s.id); 
-            } else { 
-                selectedIds.delete(s.id); 
-            }
-            updateApplyAllButton();
+            e.stopPropagation();
+            toggleMultiSelect(s.id);
         };
         actions.appendChild(checkbox);
     } else {
-        const btnApply = makeIconButton("Apply", window.__SEARCH_TEMPLATE__.svgCheck, () => {
+        const btnApply = makeIconButton("Apply", window.__SEARCH_TEMPLATE__.svgCheck, (e) => {
+            e.stopPropagation();
             vscode.postMessage({ command: "apply", id: s.id });
         });
-        const btnEdit = makeIconButton("Edit", window.__SEARCH_TEMPLATE__.svgEdit, () => {
+        const btnEdit = makeIconButton("Edit", window.__SEARCH_TEMPLATE__.svgEdit, (e) => {
+            e.stopPropagation();
             editingId = s.id;
             document.getElementById("name").value = s.name;
             document.getElementById("include").value = s.include || "";
             document.getElementById("exclude").value = s.exclude || "";
         });
-        const btnDel = makeIconButton("Delete", window.__SEARCH_TEMPLATE__.svgTrash, () => {
+        const btnDel = makeIconButton("Delete", window.__SEARCH_TEMPLATE__.svgTrash, (e) => {
+            e.stopPropagation();
             vscode.postMessage({ command: "delete", id: s.id });
         });
     
