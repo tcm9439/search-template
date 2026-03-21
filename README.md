@@ -11,14 +11,14 @@ Save and reuse sets of search filters (include/exclude globs) and apply them to 
 
 ## Demo
 
-![demo](guide/demo.gif)
+![demo](https://github.com/tcm9439/search-template/blob/main/guide/demo.gif?raw=true)
 1. Open the "Search Template" view in the Activity Bar.
 2. Fill `Name`, `Files to include` and `Files to exclude`, then click `Save`.
 3. Select a saved template and click the apply button to run Find in Files with those filters.
 
 ## Usage
 
-![buttons](guide/buttons.png)
+![buttons](https://github.com/tcm9439/search-template/blob/main/guide/buttons.png?raw=true)
 - Open the "Search Template" sidebar (Activity Bar) to view and manage templates.
 - Fields:
 	- `Name` — human-friendly label for the template.

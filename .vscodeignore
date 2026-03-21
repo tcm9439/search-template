@@ -1,11 +1,12 @@
+.planning/**
 .vscode/**
 .vscode-test/**
+guide/**
 src/**
-.vscodeignore rule: include media assets in src/media
 !src/media/**
 .gitignore
 .yarnrc
-vsc-extension-quickstart.md
+pnpm-lock.yaml
 **/tsconfig.json
 **/eslint.config.mjs
 **/*.map

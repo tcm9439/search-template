@@ -2,7 +2,7 @@
     "name": "search-template",
     "displayName": "Search Template",
     "description": "Store multiple search parameters.",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "icon": "resources/icon.png",
     "engines": {
         "vscode": "^1.109.0"
@@ -20,14 +20,14 @@
         "viewsContainers": {
             "activitybar": [
                 {
-                    "id": "searchTemplate",
+                    "id": "searchTemplateActivityBarContainer",
                     "title": "Search Template",
                     "icon": "resources/icon.svg"
                 }
             ]
         },
         "views": {
-            "searchTemplate": [
+            "searchTemplateActivityBarContainer": [
                 {
                     "id": "searchTemplate.searchTemplateListSidebar",
                     "icon": "resources/icon.svg",
