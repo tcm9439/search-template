@@ -4,6 +4,7 @@
     "description": "Store multiple search parameters.",
     "version": "0.1.1",
     "icon": "resources/icon.png",
+    "publisher": "MaisyT",
     "engines": {
         "vscode": "^1.109.0"
     },
