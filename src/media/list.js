@@ -3,6 +3,9 @@ const vscode = acquireVsCodeApi();
 let editingId = "";
 const selectedIds = new Set();
 let multiSelectMode = localStorage.getItem("multiSelectMode") === "true";
+let focusedIndex = -1;
+let hasPressedArrowKey = false;
+let templateIds = [];
 
 function makeIconButton(titleText, src, onClick) {
     const btn = document.createElement("button");
@@ -46,14 +49,16 @@ function toggleMultiSelect(id) {
     updateApplyAllButton();
 }
 
-function renderTemplateItem(s) {
+function renderTemplateItem(s, index) {
     const div = document.createElement("div");
     div.className = "item";
+    div.setAttribute("data-index", index);
+    div.setAttribute("tabindex", "-1");
     div.onclick = (e) => {
         if (multiSelectMode) {
             toggleMultiSelect(s.id);
             vscode.postMessage({ command: "rerender" });
-        }
+        } 
     };
 
     const itemHeader = document.createElement("div");
@@ -132,9 +137,9 @@ function renderTemplateItem(s) {
 function renderTemplateList(sets) {
     const listDom = document.getElementById("list");
     listDom.innerHTML = "";
-
-    sets.forEach((s) => {
-        const div = renderTemplateItem(s);
+    templateIds = sets.map(s => s.id);
+    sets.forEach((s, index) => {
+        const div = renderTemplateItem(s, index);
         listDom.appendChild(div);
     });
 }
@@ -150,17 +155,92 @@ document.getElementById("save").addEventListener("click", () => {
     clearEditing();
 });
 
-document.getElementById("multi-select-toggle").addEventListener("change", (e) => {
-    multiSelectMode = e.target.checked;
+function setMultiSelectMode(newMode) {
+    multiSelectMode = newMode;
     localStorage.setItem("multiSelectMode", multiSelectMode);
+    document.getElementById("multi-select-toggle").checked = multiSelectMode;
     selectedIds.clear();
+    focusedIndex = -1;
+    hasPressedArrowKey = false;
     updateApplyAllButton();
     vscode.postMessage({ command: "rerender" });
+}
+
+document.getElementById("multi-select-toggle").addEventListener("change", (e) => {
+    setMultiSelectMode(e.target.checked);
 });
 
 document.getElementById("apply-all").addEventListener("click", () => {
     vscode.postMessage({ command: "apply-all", ids: Array.from(selectedIds) });
 });
+
+function updateFocusedItem() {
+    const items = document.querySelectorAll(".item");
+    items.forEach((item, index) => {
+        if (hasPressedArrowKey && index === focusedIndex) {
+            item.classList.add("keyboard-focused");
+            item.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        } else {
+            item.classList.remove("keyboard-focused");
+        }
+    });
+}
+
+function handleKeyboardNavigation(e) {
+    const items = document.querySelectorAll(".item");
+    if (items.length === 0) { return; }
+
+    if (["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "Enter"].includes(e.key)) {
+        e.preventDefault();
+    } else {
+        return;
+    }
+    const activeElementTagName = document.activeElement.tagName;
+    if (activeElementTagName === "BUTTON" && e.key === "Enter") {
+        return;
+    }
+    if (["BUTTON", "INPUT", "TEXTAREA"].includes(activeElementTagName)) {
+        document.activeElement.blur();
+    }
+    switch (e.key) {
+        case "ArrowDown":
+            if (!hasPressedArrowKey) {
+                hasPressedArrowKey = true;
+                focusedIndex = 0;
+            } else if (focusedIndex < templateIds.length - 1) {
+                focusedIndex++;
+            }
+            updateFocusedItem();
+            break;
+        case "ArrowUp":
+            if (!hasPressedArrowKey) {
+                hasPressedArrowKey = true;
+                focusedIndex = 0;
+            } else if (focusedIndex > 0) {
+                focusedIndex--;
+            }
+            updateFocusedItem();
+            break;
+        case "ArrowLeft":
+            setMultiSelectMode(!multiSelectMode);
+            break;
+        case "ArrowRight":
+            if (multiSelectMode && selectedIds.size > 0) {
+                vscode.postMessage({ command: "apply-all", ids: Array.from(selectedIds) });
+            }
+            break;
+        case "Enter":
+            if (multiSelectMode) {
+                const id = templateIds[focusedIndex];
+                toggleMultiSelect(id);
+                vscode.postMessage({ command: "rerender" });
+            } else {
+                const id = templateIds[focusedIndex];
+                vscode.postMessage({ command: "apply", id });
+            }
+            break;
+    }
+}
 
 window.addEventListener("message", (event) => {
     const msg = event.data;
@@ -168,6 +248,7 @@ window.addEventListener("message", (event) => {
         renderTemplateList(msg.sets || []);
     }
 });
+document.addEventListener("keydown", handleKeyboardNavigation);
 
 function onLoad() {
     document.getElementById("multi-select-toggle").checked = multiSelectMode;

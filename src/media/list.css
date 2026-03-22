@@ -114,6 +114,16 @@ input[type="checkbox"],
     text-decoration: underline;
 }
 
+.item.keyboard-focused {
+    background-color: var(--vscode-list-hoverBackground);
+    outline: 2px solid var(--vscode-focusBorder);
+    outline-offset: -2px;
+}
+
+.item.keyboard-focused .title strong {
+    color: var(--vscode-textLink-foreground);
+}
+
 .item-header {
     font-size: 1.25em;
     display: flex;

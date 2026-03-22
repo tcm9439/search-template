@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.2.0]
+### Added
+- Keyboard shortcuts for applying templates and toggling multi-select mode.
+
 ## [0.1.1]
 Tidy up things for public release. No functional changes.
 

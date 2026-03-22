@@ -30,3 +30,17 @@ Save and reuse sets of search filters (include/exclude globs) and apply them to 
 	- `Edit` — load the template into the input fields for modification.
 	- `Delete` — remove the template from workspace storage.
 	- `Multi` toggle + `Apply All` — combine selected templates and apply together.
+
+## Keyboard Shortcuts
+
+- In VSCode's Keyboard Shortcuts settings, look for "View: Show Search Template" to customize the keybinding to open on this extension's activity bar view.
+  - When the activity bar is out of focus (e.g. after switching back from another window), you can use this shortcut to focus back
+
+The following shortcuts work only when the Search Template sidebar view is focused:
+
+| Shortcut | Action |
+|----------|--------|
+| Left Arrow | Toggle Multi-Select mode on/off |
+| Up/Down Arrows | Navigate through templates |
+| Enter | Apply the focused template. Multi-select mode: toggle selection |
+| Right Arrow | Multi-select mode: apply all selected templates |
